@@ -1,0 +1,14 @@
+body{
+    background-color: lightgrey;
+    max-width:600px;
+    margin: auto;
+    font-family: sans-serif;
+}
+p{
+    line-height: 1cm;
+}
+article + article{
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid dimgrey;
+}
