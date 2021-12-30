@@ -16,40 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $posts = Post::latest();
-    if (request('search')){
-        $posts->where('title','Like','%'.request('search').'%')
-        ->orWhere('body','Like','%'.request('search').'%');
-    }
-    return view('posts',[
-        'posts' => $posts->get(),
-        'categories' => Category::all()
-    ]);
-})->name('home');
+Route::get('/', [\App\Http\Controllers\PostController::class,'index'])->name('home');
 
-Route::get('/posts/{post:slug}', function (Post $post) {
+Route::get('/posts/{post:slug}', [\App\Http\Controllers\PostController::class, 'show']);
 
-    return view('post',[
-        'post' => $post
-        ]);
-});
-
-Route::get('/categories/{category:slug}', function (Category $category){
-
-    return view('posts',[
-
-        'posts' => $category->posts,
-        'currentCategory' => $category,
-        'categories' => Category::all()
-
-    ]);
-})->name('category');
+//Route::get('/categories/{category:slug}', function (Category $category){
+//
+//    return view('posts',[
+//
+//        'posts' => $category->posts,
+//        'currentCategory' => $category,
+//        'categories' => Category::all()
+//
+//    ]);
+//})->name('category');
 Route::get('/authors/{author:username}', function (User $author){
 
-    return view('posts',[
+    return view('posts.index',[
         'posts' => $author->posts,
-        'categories' => Category::all()
 
     ]);
 });
