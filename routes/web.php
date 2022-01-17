@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
@@ -22,4 +23,4 @@ Route::get('/posts/{post:slug}', [\App\Http\Controllers\PostController::class, '
 
 Route::get('register',[RegisterController::class, 'create'])->middleware('guest');
 Route::post('register',[RegisterController::class, 'store'])->middleware('guest');
-
+Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
